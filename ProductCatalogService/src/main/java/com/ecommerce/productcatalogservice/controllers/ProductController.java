@@ -4,6 +4,7 @@ import com.ecommerce.productcatalogservice.dtos.CategoryDto;
 import com.ecommerce.productcatalogservice.dtos.ProductDto;
 import com.ecommerce.productcatalogservice.exceptions.CategoryNotFoundException;
 import com.ecommerce.productcatalogservice.exceptions.ProductNotFoundException;
+import com.ecommerce.productcatalogservice.models.Category;
 import com.ecommerce.productcatalogservice.models.Product;
 import com.ecommerce.productcatalogservice.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class ProductController {
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<ProductDto>> getProductByCategoryId(@RequestParam Long categoryId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) throws CategoryNotFoundException {
+    @GetMapping("category/{categoryId}")
+    public ResponseEntity<List<ProductDto>> getProductByCategoryId(@PathVariable Long categoryId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) throws CategoryNotFoundException {
         if (categoryId <= 0)
             throw new IllegalArgumentException("category id is invalid");
         Page<Product> productPage = productService.getProductsByCategoryId(categoryId, page, size);
@@ -50,6 +51,27 @@ public class ProductController {
             productDtos.add(getProductDto(product));
         }
         return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){
+        Product product = productService.createProduct(getProduct(productDto));
+        return new ResponseEntity<>(getProductDto(product), HttpStatus.CREATED);
+    }
+
+    private Product getProduct(ProductDto productDto){
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setImageUrl(productDto.getImageUrl());
+        if(productDto.getCategory() != null) {
+            Category category = new Category();
+            category.setName(productDto.getCategory().getName());
+            category.setDescription(productDto.getCategory().getDescription());
+            product.setCategory(category);
+        }
+        return product;
     }
 
     private ProductDto getProductDto(Product product){
@@ -63,6 +85,7 @@ public class ProductController {
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.setId(product.getCategory().getId());
             categoryDto.setName(product.getCategory().getName());
+            categoryDto.setDescription(product.getCategory().getDescription());
             productDto.setCategory(categoryDto);
         }
         return productDto;

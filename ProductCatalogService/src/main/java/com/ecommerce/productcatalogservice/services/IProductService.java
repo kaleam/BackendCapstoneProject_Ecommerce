@@ -13,4 +13,5 @@ public interface IProductService {
     public Product getProductById(Long id) throws ProductNotFoundException;
     public Page<Product> getProductsByCategoryId(Long id, int page, int size) throws CategoryNotFoundException;
     public List<Product> searchProducts(String keyword);
+    public Product createProduct(Product product);
 }

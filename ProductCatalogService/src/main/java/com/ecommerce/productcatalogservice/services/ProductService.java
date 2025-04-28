@@ -55,4 +55,12 @@ public class ProductService implements IProductService{
         // To integrate with ElasticSearch for full text search
         return List.of();
     }
+
+    @Override
+    public Product createProduct(Product product) {
+        // check if category name is already present
+        Optional<Category> categoryOptional = categoryRepository.findByName(product.getCategory().getName());
+        categoryOptional.ifPresent(product::setCategory);
+        return productRepository.save(product);
+    }
 }
