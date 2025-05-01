@@ -17,6 +17,6 @@ public class Order extends BaseModel{
     private OrderStatus status;
     private double totalAmount;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> items;
 }

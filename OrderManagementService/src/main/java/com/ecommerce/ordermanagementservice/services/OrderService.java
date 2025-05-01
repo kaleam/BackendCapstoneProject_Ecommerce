@@ -3,6 +3,7 @@ package com.ecommerce.ordermanagementservice.services;
 import com.ecommerce.ordermanagementservice.exceptions.CustomerNotFoundException;
 import com.ecommerce.ordermanagementservice.exceptions.OrderNotFoundException;
 import com.ecommerce.ordermanagementservice.models.Order;
+import com.ecommerce.ordermanagementservice.models.OrderItem;
 import com.ecommerce.ordermanagementservice.models.OrderStatus;
 import com.ecommerce.ordermanagementservice.repos.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class OrderService implements IOrderService{
 
     @Override
     public Order createOrder(Order order) {
+        for(OrderItem item : order.getItems()){
+            item.setOrder(order);
+        }
         order.setStatus(OrderStatus.CREATED);
         orderRepository.save(order);
 

@@ -15,7 +15,7 @@ public class OrderItem extends BaseModel{
     private int quantity;
     private double price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
 }
