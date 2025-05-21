@@ -59,6 +59,12 @@ public class ProductController {
         return new ResponseEntity<>(getProductDto(product), HttpStatus.CREATED);
     }
 
+    @GetMapping("search")
+    public ResponseEntity<List<ProductDto>> search(@RequestParam String keyword) {
+        List<Product> products = productService.search(keyword);
+        return new ResponseEntity<>(products.stream().map(this::getProductDto).toList(), HttpStatus.OK);
+    }
+
     private Product getProduct(ProductDto productDto){
         Product product = new Product();
         product.setName(productDto.getName());

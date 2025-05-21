@@ -1,4 +1,4 @@
-package com.ecommerce.productcatalogservice.repos;
+package com.ecommerce.productcatalogservice.repos.jpa;
 
 import com.ecommerce.productcatalogservice.models.Category;
 import com.ecommerce.productcatalogservice.models.Product;

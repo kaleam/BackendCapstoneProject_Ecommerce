@@ -9,9 +9,10 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface IProductService {
-    public Page<Product> getAllProducts(int page, int size);
-    public Product getProductById(Long id) throws ProductNotFoundException;
-    public Page<Product> getProductsByCategoryId(Long id, int page, int size) throws CategoryNotFoundException;
-    public List<Product> searchProducts(String keyword);
-    public Product createProduct(Product product);
+    Page<Product> getAllProducts(int page, int size);
+    Product getProductById(Long id) throws ProductNotFoundException;
+    Page<Product> getProductsByCategoryId(Long id, int page, int size) throws CategoryNotFoundException;
+    List<Product> searchProducts(String keyword);
+    Product createProduct(Product product);
+    List<Product> search(String keyword);
 }
