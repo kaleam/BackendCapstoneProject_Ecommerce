@@ -5,6 +5,9 @@ import com.ecommerce.cartservice.models.Cart;
 import com.ecommerce.cartservice.models.CartItem;
 import com.ecommerce.cartservice.repos.ICartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -23,6 +26,7 @@ public class CartService implements ICartService{
     }
 
     @Override
+    @CachePut(value = "cart", key = "#userId")
     public Cart addItem(Long userId, CartItem item) {
         Cart cart = getOrCreateCart(userId);
         boolean itemUpdated = false;
@@ -44,6 +48,7 @@ public class CartService implements ICartService{
     }
 
     @Override
+    @CachePut(value = "cart", key = "#userId")
     public Cart removeItem(Long userId, Long productId) {
         Cart cart = getOrCreateCart(userId);
         cart.getItems().removeIf(i -> i.getProductId().equals(productId));
@@ -51,6 +56,7 @@ public class CartService implements ICartService{
     }
 
     @Override
+    @CacheEvict(value = "cart", key = "#userId")
     public void clearCart(Long userId) {
         Cart cart = getOrCreateCart(userId);
         cart.getItems().clear();
@@ -58,6 +64,7 @@ public class CartService implements ICartService{
     }
 
     @Override
+    @Cacheable(value = "cart", key = "#userId")
     public Cart getCart(Long userId) throws CartNotFoundException {
         Optional<Cart> cartOptional = cartRepository.findByUserId(userId);
         if (cartOptional.isEmpty()) {
