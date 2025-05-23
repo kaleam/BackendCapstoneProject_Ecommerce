@@ -1,7 +1,10 @@
 package com.ecommerce.usermanagementservice.services;
 
+import com.ecommerce.usermanagementservice.dtos.UserEvent;
 import com.ecommerce.usermanagementservice.exceptions.*;
+import com.ecommerce.usermanagementservice.models.NotificationType;
 import com.ecommerce.usermanagementservice.models.User;
+import com.ecommerce.usermanagementservice.producers.UserEventProducer;
 import com.ecommerce.usermanagementservice.repos.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +20,9 @@ public class UserService implements IUserService{
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private UserEventProducer userEventProducer;
+
     @Override
     public User signup(User user) throws UsernameAlreadyExists, EmailAlreadyExists {
         // check if username exists
@@ -27,8 +33,13 @@ public class UserService implements IUserService{
             throw new EmailAlreadyExists("Email already exist");
         // encrypt password
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        // save and return User entity
-        return userRepository.save(user);
+        // save User entity
+        User savedUser = userRepository.save(user);
+        // publish event to Kafka
+        UserEvent userEvent = prepareUserEvent(savedUser);
+        userEventProducer.publishEvent(userEvent);
+        // return User entity
+        return userRepository.save(savedUser);
     }
 
     @Override
@@ -71,5 +82,15 @@ public class UserService implements IUserService{
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
         return true;
+    }
+
+    private UserEvent prepareUserEvent(User user) {
+        UserEvent userEvent = new UserEvent();
+        userEvent.setUserId(user.getUsername());
+        userEvent.setEmail(user.getEmail());
+        userEvent.setPhoneNumber("1234567890");
+        userEvent.setMessage("Welcome to our service, " + user.getFullName() + "!");
+        userEvent.setType(NotificationType.EMAIL);
+        return userEvent;
     }
 }

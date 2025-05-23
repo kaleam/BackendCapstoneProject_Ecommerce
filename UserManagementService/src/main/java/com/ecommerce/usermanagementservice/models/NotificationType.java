@@ -1,2 +1,6 @@
-package com.ecommerce.usermanagementservice.models;public class NotificationType {
+package com.ecommerce.usermanagementservice.models;
+
+public enum NotificationType {
+    EMAIL,
+    SMS
 }
