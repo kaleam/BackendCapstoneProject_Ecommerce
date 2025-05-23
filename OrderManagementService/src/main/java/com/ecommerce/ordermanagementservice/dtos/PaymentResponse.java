@@ -1,2 +1,11 @@
-package com.ecommerce.ordermanagementservice.dtos;public class PaymentResponse {
+package com.ecommerce.ordermanagementservice.dtos;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class PaymentResponse {
+    private Long orderId;
+    private String status; // SUCCESS, FAILED
 }
