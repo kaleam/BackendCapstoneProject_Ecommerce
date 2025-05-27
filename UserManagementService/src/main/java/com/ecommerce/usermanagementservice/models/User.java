@@ -19,6 +19,4 @@ public class User extends BaseModel{
     private String password;
 
     private String fullName;
-
-    private boolean active = true;
 }

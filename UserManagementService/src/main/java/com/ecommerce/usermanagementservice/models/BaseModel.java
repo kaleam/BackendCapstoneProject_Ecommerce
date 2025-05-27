@@ -24,4 +24,7 @@ public abstract class BaseModel {
 
     @LastModifiedDate
     private Instant updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    private State state;
 }

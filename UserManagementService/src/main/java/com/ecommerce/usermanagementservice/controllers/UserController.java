@@ -3,7 +3,11 @@ package com.ecommerce.usermanagementservice.controllers;
 import com.ecommerce.usermanagementservice.dtos.*;
 import com.ecommerce.usermanagementservice.models.User;
 import com.ecommerce.usermanagementservice.services.IUserService;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,7 +18,7 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping
-    public SignUpResponseDto signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
         SignUpResponseDto signUpResponseDto = new SignUpResponseDto();
         try {
             User user = new User();
@@ -33,24 +37,28 @@ public class UserController {
         catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        return signUpResponseDto;
+        return new ResponseEntity<>(signUpResponseDto, HttpStatus.CREATED);
     }
 
     @PostMapping("login")
-    public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         LoginResponseDto loginResponseDto = new LoginResponseDto();
+        MultiValueMap<String, String> headers;
         try{
-            userService.login(loginRequestDto.getUsername(),loginRequestDto.getPassword());
+            Pair<User, MultiValueMap<String, String>> loginResponse =  userService.login(loginRequestDto.getUsername(),loginRequestDto.getPassword());
             loginResponseDto.setMessage("Login successful");
+            User user = loginResponse.a;
+            loginResponseDto.setUserId(user.getId());
+            headers = loginResponse.b;
         }
         catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        return loginResponseDto;
+        return new ResponseEntity<>(loginResponseDto, headers, HttpStatus.OK);
     }
 
     @PatchMapping({"{id}"})
-    public UpdateProfileResponseDto updateProfile(@PathVariable Long id, @RequestBody UpdateProfileRequestDto updateProfileRequestDto) {
+    public ResponseEntity<UpdateProfileResponseDto> updateProfile(@PathVariable Long id, @RequestBody UpdateProfileRequestDto updateProfileRequestDto) {
         UpdateProfileResponseDto updateProfileResponseDto = new UpdateProfileResponseDto();
         try{
             User user = new User();
@@ -62,11 +70,11 @@ public class UserController {
         catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        return updateProfileResponseDto;
+        return new ResponseEntity<>(updateProfileResponseDto, HttpStatus.OK);
     }
 
     @PostMapping("reset/{id}")
-    public ResetPasswordResponseDto resetPassword(@PathVariable Long id, @RequestBody ResetPasswordRequestDto resetPasswordRequestDto) {
+    public ResponseEntity<ResetPasswordResponseDto> resetPassword(@PathVariable Long id, @RequestBody ResetPasswordRequestDto resetPasswordRequestDto) {
         ResetPasswordResponseDto resetPasswordResponseDto = new ResetPasswordResponseDto();
         try{
             userService.resetPassword(id,resetPasswordRequestDto.getPassword());
@@ -75,7 +83,28 @@ public class UserController {
         catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        return resetPasswordResponseDto;
+        return new ResponseEntity<>(resetPasswordResponseDto, HttpStatus.OK);
+    }
+
+    @PostMapping("validateToken")
+    public boolean validateToken(@RequestBody ValidateTokenDto validateTokenDto) {
+        try {
+            return userService.validateToken(validateTokenDto.getToken(), validateTokenDto.getUserId());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @PostMapping("logout")
+    public ResponseEntity<LogoutResponseDto> logout(@RequestBody LogoutRequestDto logoutRequestDto) {
+        LogoutResponseDto logoutResponseDto = new LogoutResponseDto();
+        try {
+            userService.logout(logoutRequestDto.getToken(), logoutRequestDto.getUserId());
+            logoutResponseDto.setMessage("Logout successful");
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return new ResponseEntity<>(logoutResponseDto, HttpStatus.OK);
     }
 
 }
