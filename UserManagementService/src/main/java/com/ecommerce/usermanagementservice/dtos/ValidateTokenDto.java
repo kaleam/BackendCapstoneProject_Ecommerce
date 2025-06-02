@@ -7,5 +7,4 @@ import lombok.Setter;
 @Setter
 public class ValidateTokenDto {
     private String token;
-    private Long userId;
 }

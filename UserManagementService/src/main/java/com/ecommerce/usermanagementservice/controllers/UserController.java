@@ -86,20 +86,17 @@ public class UserController {
         return new ResponseEntity<>(resetPasswordResponseDto, HttpStatus.OK);
     }
 
-    @PostMapping("validateToken")
-    public boolean validateToken(@RequestBody ValidateTokenDto validateTokenDto) {
-        try {
-            return userService.validateToken(validateTokenDto.getToken(), validateTokenDto.getUserId());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    @GetMapping("validateToken")
+    public boolean validateToken() {
+        return true;
     }
 
-    @PostMapping("logout")
-    public ResponseEntity<LogoutResponseDto> logout(@RequestBody LogoutRequestDto logoutRequestDto) {
+    @GetMapping("logout")
+    public ResponseEntity<LogoutResponseDto> logout(@RequestHeader("Authorization") String authHeader) {
         LogoutResponseDto logoutResponseDto = new LogoutResponseDto();
+        String token = authHeader.substring(7);
         try {
-            userService.logout(logoutRequestDto.getToken(), logoutRequestDto.getUserId());
+            userService.logout(token);
             logoutResponseDto.setMessage("Logout successful");
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());

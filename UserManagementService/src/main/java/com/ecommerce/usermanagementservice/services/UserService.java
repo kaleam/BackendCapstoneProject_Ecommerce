@@ -106,8 +106,11 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public boolean validateToken(String token, Long userId) throws SessionDoesNotExist, SessionIsNotActive {
-        Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
+    public boolean validateToken(String token) throws SessionDoesNotExist, SessionIsNotActive {
+        // check if token is valid
+        Claims claims = parseJwtToken(token);
+        long userIdFromToken = claims.get("user_id", Long.class);
+        Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userIdFromToken);
         // check if session exists
         if(sessionOptional.isEmpty())
             throw new SessionDoesNotExist("Session does not exist");
@@ -115,9 +118,6 @@ public class UserService implements IUserService{
         // check if session is active
         if(session.getState() != State.ACTIVE)
             throw new SessionIsNotActive("Session is not active");
-        // check if token is valid
-        JwtParser parser = Jwts.parser().verifyWith(secretKey).build();
-        Claims claims = parser.parseSignedClaims(token).getPayload();
         long expiryTime = claims.getExpiration().getTime();
         long currentTime = System.currentTimeMillis();
         if(currentTime > expiryTime) {
@@ -128,7 +128,9 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void logout(String token, Long userId) throws SessionDoesNotExist {
+    public void logout(String token) throws SessionDoesNotExist {
+        Claims claims = parseJwtToken(token);
+        long userId = claims.get("user_id", Long.class);
         Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
         // check if session exists
         if(sessionOptional.isEmpty())
@@ -137,6 +139,11 @@ public class UserService implements IUserService{
         // set session state to INACTIVE
         session.setState(State.INACTIVE);
         sessionRepository.save(session);
+    }
+
+    private Claims parseJwtToken(String token) {
+        JwtParser parser = Jwts.parser().verifyWith(secretKey).build();
+        return parser.parseSignedClaims(token).getPayload();
     }
 
     private UserEvent prepareUserEvent(User user) {
