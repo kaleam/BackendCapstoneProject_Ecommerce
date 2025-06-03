@@ -14,8 +14,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
-                .addPathPatterns("/user/*")
-                .addPathPatterns("/user/reset/*")
-                .excludePathPatterns("/user/login"); // Exclude public routes
+                .addPathPatterns("/api/user/**")
+                .excludePathPatterns("/api/user/login")
+                .excludePathPatterns("/api/user/signup")
+                .excludePathPatterns("/api/user/api-docs/**")
+                .excludePathPatterns("/api/user/swagger-ui.html")
+                .excludePathPatterns("/api/user/swagger-ui/**");
     }
 }

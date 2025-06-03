@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "sessions")
-public class Session extends BaseModel{
+public class Session extends BaseModel {
     private String token;
 
     @ManyToOne

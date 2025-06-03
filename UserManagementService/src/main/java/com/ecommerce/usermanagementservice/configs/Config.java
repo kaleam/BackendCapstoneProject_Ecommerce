@@ -28,7 +28,7 @@ public class Config {
     }
 
     @Bean
-    public SecretKey secretKey(){
+    public SecretKey secretKey() {
         MacAlgorithm algo = Jwts.SIG.HS256;
         SecretKey key = algo.key().build();
         return key;

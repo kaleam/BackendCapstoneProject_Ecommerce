@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity(name = "users")
 @Getter
 @Setter
-public class User extends BaseModel{
+public class User extends BaseModel {
     @Column(nullable = false, unique = true)
     private String username;
 

@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
 
@@ -46,10 +46,10 @@ public class UserService implements IUserService{
     @Override
     public User signup(User user) throws UsernameAlreadyExists, EmailAlreadyExists {
         // check if username exists
-        if(userRepository.findByUsername(user.getUsername()).isPresent())
+        if (userRepository.findByUsername(user.getUsername()).isPresent())
             throw new UsernameAlreadyExists("Username already taken");
         // check if email exists
-        if(userRepository.findByEmail(user.getEmail()).isPresent())
+        if (userRepository.findByEmail(user.getEmail()).isPresent())
             throw new EmailAlreadyExists("Email already exist");
         // encrypt password
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -67,37 +67,47 @@ public class UserService implements IUserService{
     public Pair<User, MultiValueMap<String, String>> login(String username, String password) throws UsernameDoesNotExist, WrongPassword {
         // check if username exists
         Optional<User> userOptional = userRepository.findByUsername(username);
-        if(userOptional.isEmpty())
+        if (userOptional.isEmpty())
             throw new UsernameDoesNotExist("Username does not exist");
         User user = userOptional.get();
-        if(!bCryptPasswordEncoder.matches(password, user.getPassword()))
+        if (!bCryptPasswordEncoder.matches(password, user.getPassword()))
             throw new WrongPassword("Wrong password");
         return new Pair<>(user, generateToken(user));
     }
 
     @Override
-    public boolean updateProfile(Long id, User updateUser) throws IdDoesNotExist, EmailAlreadyExists {
+    public boolean updateProfile(Long id, User updateUser, String token) throws IdDoesNotExist, EmailAlreadyExists, InvalidRequest {
+        // check if userid from token is matching with the id passed
+        Claims claims = parseJwtToken(token);
+        long userIdFromToken = claims.get("user_id", Long.class);
+        if (userIdFromToken != id)
+            throw new InvalidRequest("Id does not match with token");
         // check if id exists
         Optional<User> userOptional = userRepository.findById(id);
-        if(userOptional.isEmpty())
+        if (userOptional.isEmpty())
             throw new IdDoesNotExist("Id not found");
         User user = userOptional.get();
-        if(updateUser.getEmail() != null) {
-            if(userRepository.findByEmail(updateUser.getEmail()).isPresent())
+        if (updateUser.getEmail() != null) {
+            if (userRepository.findByEmail(updateUser.getEmail()).isPresent())
                 throw new EmailAlreadyExists("Email already exist");
             user.setEmail(updateUser.getEmail());
         }
-        if(updateUser.getFullName() != null)
+        if (updateUser.getFullName() != null)
             user.setFullName(updateUser.getFullName());
         userRepository.save(user);
         return true;
     }
 
     @Override
-    public boolean resetPassword(Long id, String password) throws IdDoesNotExist{
+    public boolean resetPassword(Long id, String password, String token) throws IdDoesNotExist, InvalidRequest {
+        // check if userid from token is matching with the id passed
+        Claims claims = parseJwtToken(token);
+        long userIdFromToken = claims.get("user_id", Long.class);
+        if (userIdFromToken != id)
+            throw new InvalidRequest("Id does not match with token");
         // check if id exists
         Optional<User> userOptional = userRepository.findById(id);
-        if(userOptional.isEmpty())
+        if (userOptional.isEmpty())
             throw new IdDoesNotExist("Id not found");
         User user = userOptional.get();
         user.setPassword(bCryptPasswordEncoder.encode(password));
@@ -112,15 +122,15 @@ public class UserService implements IUserService{
         long userIdFromToken = claims.get("user_id", Long.class);
         Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userIdFromToken);
         // check if session exists
-        if(sessionOptional.isEmpty())
+        if (sessionOptional.isEmpty())
             throw new SessionDoesNotExist("Session does not exist");
         Session session = sessionOptional.get();
         // check if session is active
-        if(session.getState() != State.ACTIVE)
+        if (session.getState() != State.ACTIVE)
             throw new SessionIsNotActive("Session is not active");
         long expiryTime = claims.getExpiration().getTime();
         long currentTime = System.currentTimeMillis();
-        if(currentTime > expiryTime) {
+        if (currentTime > expiryTime) {
             System.out.println("Token Expired !!!");
             return false;
         }
@@ -133,7 +143,7 @@ public class UserService implements IUserService{
         long userId = claims.get("user_id", Long.class);
         Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
         // check if session exists
-        if(sessionOptional.isEmpty())
+        if (sessionOptional.isEmpty())
             throw new SessionDoesNotExist("Session does not exist");
         Session session = sessionOptional.get();
         // set session state to INACTIVE
@@ -156,19 +166,19 @@ public class UserService implements IUserService{
         return userEvent;
     }
 
-    private MultiValueMap<String, String> generateToken(User user){
-        Map<String,Object> claims = new HashMap<>();
+    private MultiValueMap<String, String> generateToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
         claims.put("user_id", user.getId());
         claims.put("user_email", user.getEmail());
         long timeInMillis = System.currentTimeMillis();
         claims.put("iat", timeInMillis);
         // expiry 10 minutes
-        claims.put("exp", timeInMillis+600000);
+        claims.put("exp", timeInMillis + 600000);
         claims.put("iss", "abhijeet");
 
         String token = Jwts.builder().claims(claims).signWith(secretKey).compact();
 
-        MultiValueMap<String, String> headers= new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         ResponseCookie cookie = ResponseCookie.from("token", token)
                 .httpOnly(true)
                 .secure(true)
