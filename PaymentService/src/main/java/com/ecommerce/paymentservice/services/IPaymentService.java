@@ -6,6 +6,8 @@ import com.ecommerce.paymentservice.models.Payment;
 
 public interface IPaymentService {
     Payment makePayment(Payment payment);
+
     Payment getPaymentDetails(Long id) throws PaymentIdNotFoundException;
+
     void process(PaymentRequest request);
 }

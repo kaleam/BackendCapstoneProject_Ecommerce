@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity(name = "payments")
 @Getter
 @Setter
-public class Payment extends BaseModel{
+public class Payment extends BaseModel {
     private Long orderId;
     private double amount;
     private String paymentReferenceId;

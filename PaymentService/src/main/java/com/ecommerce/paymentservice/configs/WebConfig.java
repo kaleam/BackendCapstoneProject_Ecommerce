@@ -14,6 +14,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
-                .addPathPatterns("/payment/**");
+                .addPathPatterns("/api/payment/**")
+                .excludePathPatterns("/api/payment/api-docs/**")
+                .excludePathPatterns("/api/payment/swagger-ui.html")
+                .excludePathPatterns("/api/payment/swagger-ui/**");
     }
 }

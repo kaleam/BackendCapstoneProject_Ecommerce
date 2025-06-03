@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class PaymentService implements IPaymentService{
+public class PaymentService implements IPaymentService {
     @Autowired
     private IPaymentRepository paymentRepository;
 
@@ -32,7 +32,7 @@ public class PaymentService implements IPaymentService{
     @Override
     public Payment getPaymentDetails(Long id) throws PaymentIdNotFoundException {
         Optional<Payment> paymentOptional = paymentRepository.findById(id);
-        if(paymentOptional.isEmpty()){
+        if (paymentOptional.isEmpty()) {
             throw new PaymentIdNotFoundException("Payment ID not found");
         }
         return paymentOptional.get();
