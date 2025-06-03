@@ -12,7 +12,7 @@ import java.util.List;
 @Entity(name = "orders")
 @Getter
 @Setter
-public class Order extends BaseModel{
+public class Order extends BaseModel {
     private Long customerId;
     private OrderStatus status;
     private double totalAmount;

@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface IOrderService {
     Order createOrder(Order order);
+
     Order getOrderById(Long id) throws OrderNotFoundException;
+
     List<Order> getOrdersByCustomerId(Long customerId) throws CustomerNotFoundException;
+
     void cancelOrder(Long id) throws OrderNotFoundException;
+
     void updateOrderStatus(PaymentResponse response);
 }

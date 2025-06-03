@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("order")
+@RequestMapping("api/order")
 public class OrderController {
     @Autowired
     private IOrderService orderService;
 
     @PostMapping
-    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto orderRequestDto){
+    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto orderRequestDto) {
         Order createdOrder = orderService.createOrder(getOrder(orderRequestDto));
         return ResponseEntity.status(201).body(getOrderResponseDto(createdOrder));
     }
@@ -59,7 +59,7 @@ public class OrderController {
         return orderResponseDto;
     }
 
-    private List<OrderItemDto> getOrderItemDtos(List<OrderItem> orderItems){
+    private List<OrderItemDto> getOrderItemDtos(List<OrderItem> orderItems) {
         List<OrderItemDto> orderItemDtos = new ArrayList<>();
         for (OrderItem orderItem : orderItems) {
             OrderItemDto orderItemDto = new OrderItemDto();

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrderService implements IOrderService{
+public class OrderService implements IOrderService {
     @Autowired
     private IOrderRepository orderRepository;
 
@@ -26,14 +26,14 @@ public class OrderService implements IOrderService{
     @Override
     public Order createOrder(Order order) {
         // create order
-        for(OrderItem item : order.getItems()){
+        for (OrderItem item : order.getItems()) {
             item.setOrder(order);
         }
         order.setStatus(OrderStatus.CREATED);
         orderRepository.save(order);
 
         // check inventory
-        if(!checkInventory(order)){
+        if (!checkInventory(order)) {
             order.setStatus(OrderStatus.FAILED);
             return orderRepository.save(order);
         }
@@ -60,7 +60,7 @@ public class OrderService implements IOrderService{
     @Override
     public Order getOrderById(Long id) throws OrderNotFoundException {
         Optional<Order> orderOptional = orderRepository.findById(id);
-        if(orderOptional.isEmpty()){
+        if (orderOptional.isEmpty()) {
             throw new OrderNotFoundException("Order not found");
         }
         return orderOptional.get();
@@ -69,7 +69,7 @@ public class OrderService implements IOrderService{
     @Override
     public List<Order> getOrdersByCustomerId(Long customerId) throws CustomerNotFoundException {
         List<Order> orderList = orderRepository.findByCustomerId(customerId);
-        if(orderList.isEmpty()){
+        if (orderList.isEmpty()) {
             throw new CustomerNotFoundException("Customer not found");
         }
         return orderList;
@@ -78,7 +78,7 @@ public class OrderService implements IOrderService{
     @Override
     public void cancelOrder(Long id) throws OrderNotFoundException {
         Optional<Order> orderOptional = orderRepository.findById(id);
-        if(orderOptional.isEmpty()){
+        if (orderOptional.isEmpty()) {
             throw new OrderNotFoundException("Order not found");
         }
         Order order = orderOptional.get();

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity(name = "order_items")
 @Getter
 @Setter
-public class OrderItem extends BaseModel{
+public class OrderItem extends BaseModel {
     private Long productId;
     private int quantity;
     private double price;
