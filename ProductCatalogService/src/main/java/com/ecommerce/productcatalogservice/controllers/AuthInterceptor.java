@@ -32,16 +32,13 @@ public class AuthInterceptor implements HandlerInterceptor {
             try {
                 String token = authHeader.substring(7);
 
-                // Call user-service /validate-token endpoint
-                String validationUrl = tokenUrl;
-
                 // Set Authorization header and send validation request
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("Authorization", "Bearer " + token);
                 HttpEntity<String> entity = new HttpEntity<>(headers);
 
                 ResponseEntity<String> validationResponse = restTemplate
-                        .exchange(validationUrl, HttpMethod.GET, entity, String.class);
+                        .exchange(tokenUrl, HttpMethod.GET, entity, String.class);
 
                 if (validationResponse.getStatusCode().is2xxSuccessful()) {
                     return true;

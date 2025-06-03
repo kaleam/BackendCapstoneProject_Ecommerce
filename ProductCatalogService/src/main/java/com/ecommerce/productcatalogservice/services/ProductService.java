@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-public class ProductService implements IProductService{
+public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
@@ -33,14 +33,14 @@ public class ProductService implements IProductService{
 
     @Override
     public Page<Product> getAllProducts(int page, int size) {
-        Pageable pageable = PageRequest.of(page,size, Sort.by("name").ascending().and(Sort.by("price").descending()));
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending().and(Sort.by("price").descending()));
         return productRepository.findAll(pageable);
     }
 
     @Override
     public Product getProductById(Long id) throws ProductNotFoundException {
         Optional<Product> productOptional = productRepository.findById(id);
-        if(productOptional.isEmpty()){
+        if (productOptional.isEmpty()) {
             throw new ProductNotFoundException("Product not found");
         }
         return productOptional.get();
@@ -49,11 +49,11 @@ public class ProductService implements IProductService{
     @Override
     public Page<Product> getProductsByCategoryId(Long id, int page, int size) throws CategoryNotFoundException {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
-        if(categoryOptional.isEmpty()){
+        if (categoryOptional.isEmpty()) {
             throw new CategoryNotFoundException("Category not found");
         }
         Category category = categoryOptional.get();
-        Pageable pageable = PageRequest.of(page,size, Sort.by("name").ascending().and(Sort.by("price").descending()));
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending().and(Sort.by("price").descending()));
         return productRepository.findAllByCategory(category, pageable);
     }
 
@@ -74,7 +74,8 @@ public class ProductService implements IProductService{
         return savedProduct;
     }
 
-    @Override public List<Product> search(String keyword) {
+    @Override
+    public List<Product> search(String keyword) {
         Iterable<ProductSearch> productSearches = productSearchRepository.findByNameContainingOrCategoryContaining(keyword, keyword);
         return mapToProduct(productSearches);
     }

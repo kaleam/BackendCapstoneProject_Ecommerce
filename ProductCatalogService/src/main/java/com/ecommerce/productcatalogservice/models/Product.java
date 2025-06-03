@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity(name = "products")
 @Getter
 @Setter
-public class Product extends BaseModel{
+public class Product extends BaseModel {
     private String name;
     private String description;
     private Double price;

@@ -12,20 +12,20 @@ import java.time.Instant;
 @Getter
 @Setter
 public class ProductSearch {
-    @Field(type= FieldType.Long)
+    @Field(type = FieldType.Long)
     private Long id;
-    @Field(type= FieldType.Date)
+    @Field(type = FieldType.Date)
     private Instant createdAt;
-    @Field(type= FieldType.Date)
+    @Field(type = FieldType.Date)
     private Instant updatedAt;
-    @Field(type= FieldType.Text)
+    @Field(type = FieldType.Text)
     private String name;
-    @Field(type= FieldType.Text)
+    @Field(type = FieldType.Text)
     private String description;
-    @Field(type= FieldType.Double)
+    @Field(type = FieldType.Double)
     private Double price;
-    @Field(type= FieldType.Text)
+    @Field(type = FieldType.Text)
     private String imageUrl;
-    @Field(type= FieldType.Text)
+    @Field(type = FieldType.Text)
     private String category;
 }
