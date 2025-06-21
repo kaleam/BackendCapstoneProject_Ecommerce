@@ -3,6 +3,7 @@ package com.ecommerce.ordermanagementservice.services;
 import com.ecommerce.ordermanagementservice.dtos.PaymentRequest;
 import com.ecommerce.ordermanagementservice.dtos.PaymentResponse;
 import com.ecommerce.ordermanagementservice.exceptions.CustomerNotFoundException;
+import com.ecommerce.ordermanagementservice.exceptions.NoItemsInCreateOrder;
 import com.ecommerce.ordermanagementservice.exceptions.OrderNotFoundException;
 import com.ecommerce.ordermanagementservice.models.Order;
 import com.ecommerce.ordermanagementservice.models.OrderItem;
@@ -24,7 +25,12 @@ public class OrderService implements IOrderService {
     private PaymentEventProducer paymentProducer;
 
     @Override
-    public Order createOrder(Order order) {
+    public Order createOrder(Order order) throws NoItemsInCreateOrder {
+        // validate order
+        if (order.getItems() == null || order.getItems().isEmpty()) {
+            throw new NoItemsInCreateOrder("Order must have at least one item");
+        }
+
         // create order
         for (OrderItem item : order.getItems()) {
             item.setOrder(order);
