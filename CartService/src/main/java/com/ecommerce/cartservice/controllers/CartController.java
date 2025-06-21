@@ -2,7 +2,10 @@ package com.ecommerce.cartservice.controllers;
 
 import com.ecommerce.cartservice.dtos.CartDto;
 import com.ecommerce.cartservice.dtos.CartItemDto;
+import com.ecommerce.cartservice.dtos.CheckoutResponseDto;
+import com.ecommerce.cartservice.exceptions.CartHasNoItems;
 import com.ecommerce.cartservice.exceptions.CartNotFoundException;
+import com.ecommerce.cartservice.exceptions.CreateOrderRequestFailed;
 import com.ecommerce.cartservice.models.Cart;
 import com.ecommerce.cartservice.models.CartItem;
 import com.ecommerce.cartservice.services.ICartService;
@@ -41,6 +44,20 @@ public class CartController {
     public ResponseEntity<Void> clearCart(@PathVariable Long userId){
         cartService.clearCart(userId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("user/{userId}/checkout")
+    public ResponseEntity<CheckoutResponseDto> checkout(@PathVariable Long userId, @RequestHeader("Authorization") String authHeader) throws CartNotFoundException, CreateOrderRequestFailed, CartHasNoItems {
+        String token = "";
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+        } else {
+            return ResponseEntity.status(401).build();
+        }
+        Long orderId = cartService.checkout(userId, token);
+        CheckoutResponseDto response = new CheckoutResponseDto();
+        response.setOrderId(orderId);
+        return ResponseEntity.ok(response);
     }
 
     private CartDto getCartDto(Cart cart) {
