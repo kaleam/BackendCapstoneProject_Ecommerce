@@ -29,14 +29,11 @@ public class CartService implements ICartService{
     @Autowired
     private ICartRepository cartRepository;
 
-    private final RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("${order.service.url}")
     private String orderServiceUrl;
-
-    public CartService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
 
     private Cart getOrCreateCart(Long userId) {
         return cartRepository.findByUserId(userId)
