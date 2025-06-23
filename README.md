@@ -44,14 +44,17 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ## 📂 Project Structure
 
-backend-capstone/
-├── UserManagementService/
-├── ProductCatalogService/
-├── CartService/
-├── OrderManagementService/
-├── PaymentService/
-├── NotificationService/
-├── haproxy.cfg
+- **UserManagementService**
+- **ProductCatalogService**
+- **CartService**
+- **OrderManagementService**
+- **PaymentService**
+- **NotificationService**
+- **haproxy.cfg**
+- **Ecom.postman_collection.json**
+- **LICENSE**
+- **README.md**
+- **Scaler Neovarsity _ Academy Project Report (Backend Specialization).pdf**
 
 ---
 
@@ -69,26 +72,26 @@ backend-capstone/
 ### Running the Application
 
 ```Windows CMD or Powershell```
-# 1. Build the microservice
+### 1. Build the microservice
 mvn clean package
 
-# 2. Build and run microservice
+### 2. Build and run microservice
 mvn spring-boot:run
 
 ## API Testing
 
-### Use postman collection **Ecom.postman_collection.json** to test endpoints
+### Use postman collection 'Ecom.postman_collection.json' to test endpoints
 ### Swagger UI is also available for each microservice
-- **UserManagementService**     - http://localhost:8080/api/user/swagger-ui/index.html#/
-- **ProductCatalogService**     - http://localhost:8080/api/product/swagger-ui/index.html#/
-- **CartService**               - http://localhost:8080/api/cart/swagger-ui/index.html#/
-- **OrderManagementService**    - http://localhost:8080/api/order/swagger-ui/index.html#/
-- **PaymentService**            - http://localhost:8080/api/payment/swagger-ui/index.html#/
+- **UserManagementService**     - http://<host>:<port>/api/user/swagger-ui/index.html#/
+- **ProductCatalogService**     - http://<host>:<port>/api/product/swagger-ui/index.html#/
+- **CartService**               - http://<host>:<port>/api/cart/swagger-ui/index.html#/
+- **OrderManagementService**    - http://<host>:<port>/api/order/swagger-ui/index.html#/
+- **PaymentService**            - http://<host>:<port>/api/payment/swagger-ui/index.html#/
 
 ## 🔐 Security
 
-### **JWT token authentication via UserManagementService**
-### **BCrypt for password hashing**
+- **JWT token authentication via UserManagementService**
+- **BCrypt for password hashing**
 
 ## 🧪 Testing
 
@@ -99,11 +102,11 @@ mvn test
 
 # Actuator endpoint
 
-- **UserManagementService**     - http://localhost:8080/api/user/actuator/health
-- **ProductCatalogService**     - http://localhost:8080/api/product/actuator/health
-- **CartService**               - http://localhost:8080/api/cart/actuator/health
-- **OrderManagementService**    - http://localhost:8080/api/order/actuator/health
-- **PaymentService**            - http://localhost:8080/api/payment/actuator/health
+- **UserManagementService**     - http://<host>:<port>/api/user/actuator/health
+- **ProductCatalogService**     - http://<host>:<port>/api/product/actuator/health
+- **CartService**               - http://<host>:<port>/api/cart/actuator/health
+- **OrderManagementService**    - http://<host>:<port>/api/order/actuator/health
+- **PaymentService**            - http://<host>:<port>/api/payment/actuator/health
 
 ## 🧾 License
 
