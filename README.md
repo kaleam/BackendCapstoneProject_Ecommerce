@@ -1,2 +1,118 @@
-# BackendCapstoneProject_Ecommerce
-Repository for backend capstone project - Ecommerce
+# 🛒 Backend Capstone Project — E-commerce Microservices
+
+This repository contains the backend implementation for an **E-commerce Platform** developed as a Capstone Project. It is built using a **Microservices Architecture** with technologies like **Spring Boot**, **Kafka**, **MongoDB**, and **MySQL**, designed for scalability and maintainability.
+
+---
+
+## 🚀 Features
+
+- 🔐 **User Management** – Signup, Login, Logout, JWT-based Authentication, Session Tracking
+- 🛍️ **Product Catalog** – Search and browse products using Elasticsearch
+- 🛒 **Cart Management** – Add, remove, view items in cart and checkout
+- 🧾 **Order Service** – Processing checkout, Order placement, Order tracking, Payment initiation
+- 💳 **Payment Service** – Mock payment processing and transaction logging
+- 🔔 **Notification Service** – Email/SMS notifications via Kafka
+- 📦 **Load Balancer** – Centralized routing - HAProxy
+- 📊 **Monitoring** – Actuator service exposed for each microservice
+
+---
+
+## 🧱 Microservices Overview
+
+| Service         | Description                                | Technology Stack                             |
+|-----------------|--------------------------------------------|----------------------------------------------|
+| User Service    | Manages users, login, sessions             | Spring Boot, MySQL, JWT, Bcrypt              |
+| Product Service | Searchable product listings                | Spring Boot, Elasticsearch, MySQL            |
+| Cart Service    | Manages user carts                         | Spring Boot, MongoDB, Redis                  |
+| Order Service   | Handles order lifecycle                    | Spring Boot, Kafka, MySQL                    |
+| Payment Service | Simulates payments                         | Spring Boot, Kafka, MySQL                    |
+| Notification    | Sends order and payment notifications      | Spring Boot, Kafka                           |
+| Load Balancer   | Routes requests to microservices           | HAProxy                                      |
+
+---
+
+## 🧪 Tech Stack
+
+- **Java 21 + Spring Boot 3.4.4**
+- **Kafka 2.13-4.0.0** for async communication
+- **MySQL 8.0.37** & **MongoDB 8.0.9** for data storage
+- **Elasticsearch 9.0.1** for product search
+- **JUnit + Mockito** for testing
+- **Actuator** for monitoring
+
+---
+
+## 📂 Project Structure
+
+backend-capstone/
+├── UserManagementService/
+├── ProductCatalogService/
+├── CartService/
+├── OrderManagementService/
+├── PaymentService/
+├── NotificationService/
+├── haproxy.cfg
+
+---
+
+## 🔧 Getting Started
+
+### Prerequisites
+
+- **Java 21+**
+- **Kafka 2.13-4.0.0**
+- **MySQL 8.0.37**
+- **MongoDB 8.0.9**
+- **Elasticsearch 9.0.1**
+- **Maven 3.9.9**
+
+### Running the Application
+
+```Windows CMD or Powershell```
+# 1. Build the microservice
+mvn clean package
+
+# 2. Build and run microservice
+mvn spring-boot:run
+
+## API Testing
+
+### Use postman collection **Ecom.postman_collection.json** to test endpoints
+### Swagger UI is also available for each microservice
+- **UserManagementService**     - http://localhost:8080/api/user/swagger-ui/index.html#/
+- **ProductCatalogService**     - http://localhost:8080/api/product/swagger-ui/index.html#/
+- **CartService**               - http://localhost:8080/api/cart/swagger-ui/index.html#/
+- **OrderManagementService**    - http://localhost:8080/api/order/swagger-ui/index.html#/
+- **PaymentService**            - http://localhost:8080/api/payment/swagger-ui/index.html#/
+
+## 🔐 Security
+
+### **JWT token authentication via UserManagementService**
+### **BCrypt for password hashing**
+
+## 🧪 Testing
+
+### Run unit tests
+mvn test
+
+## 📊 Monitoring
+
+# Actuator endpoint
+
+- **UserManagementService**     - http://localhost:8080/api/user/actuator/health
+- **ProductCatalogService**     - http://localhost:8080/api/product/actuator/health
+- **CartService**               - http://localhost:8080/api/cart/actuator/health
+- **OrderManagementService**    - http://localhost:8080/api/order/actuator/health
+- **PaymentService**            - http://localhost:8080/api/payment/actuator/health
+
+## 🧾 License
+
+### This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙋‍♂️ Contributors
+
+### Abhijeet Kale (@kaleam)
+
+## 📬 Contact
+
+### For any queries or suggesstions: mr.abhijeetkale@gmail.com
