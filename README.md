@@ -82,11 +82,11 @@ mvn spring-boot:run
 
 ### Use postman collection 'Ecom.postman_collection.json' to test endpoints
 ### Swagger UI is also available for each microservice
-- **UserManagementService**     - http://<host>:<port>/api/user/swagger-ui/index.html#/
-- **ProductCatalogService**     - http://<host>:<port>/api/product/swagger-ui/index.html#/
-- **CartService**               - http://<host>:<port>/api/cart/swagger-ui/index.html#/
-- **OrderManagementService**    - http://<host>:<port>/api/order/swagger-ui/index.html#/
-- **PaymentService**            - http://<host>:<port>/api/payment/swagger-ui/index.html#/
+- **UserManagementService**     - http://localhost:8080/api/user/swagger-ui/index.html#/
+- **ProductCatalogService**     - http://localhost:8080/api/product/swagger-ui/index.html#/
+- **CartService**               - http://localhost:8080/api/cart/swagger-ui/index.html#/
+- **OrderManagementService**    - http://localhost:8080/api/order/swagger-ui/index.html#/
+- **PaymentService**            - http://localhost:8080/api/payment/swagger-ui/index.html#/
 
 ## 🔐 Security
 
@@ -102,11 +102,11 @@ mvn test
 
 # Actuator endpoint
 
-- **UserManagementService**     - http://<host>:<port>/api/user/actuator/health
-- **ProductCatalogService**     - http://<host>:<port>/api/product/actuator/health
-- **CartService**               - http://<host>:<port>/api/cart/actuator/health
-- **OrderManagementService**    - http://<host>:<port>/api/order/actuator/health
-- **PaymentService**            - http://<host>:<port>/api/payment/actuator/health
+- **UserManagementService**     - http://localhost:8080/api/user/actuator/health
+- **ProductCatalogService**     - http://localhost:8080/api/product/actuator/health
+- **CartService**               - http://localhost:8080/api/cart/actuator/health
+- **OrderManagementService**    - http://localhost:8080/api/order/actuator/health
+- **PaymentService**            - http://localhost:8080/api/payment/actuator/health
 
 ## 🧾 License
 
