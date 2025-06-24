@@ -4,7 +4,9 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ---
 
-- [🛒 Backend Capstone Project — E-commerce Microservices](#-backend-capstone-project--e-commerce-microservices)
+# Table of contents
+- [� Backend Capstone Project — E-commerce Microservices](#-backend-capstone-project--e-commerce-microservices)
+- [Table of contents](#table-of-contents)
   - [🚀 Features](#-features)
   - [🧱 Microservices Overview](#-microservices-overview)
   - [🧪 Tech Stack](#-tech-stack)
@@ -12,22 +14,15 @@ This repository contains the backend implementation for an **E-commerce Platform
   - [🔧 Getting Started](#-getting-started)
     - [Prerequisites](#prerequisites)
     - [Running the Application](#running-the-application)
-      - [Build the microservice](#build-the-microservice)
-    - [Build and run microservice](#build-and-run-microservice)
   - [API Testing](#api-testing)
-    - [Use postman collection 'Ecom.postman\_collection.json' to test endpoints](#use-postman-collection-ecompostman_collectionjson-to-test-endpoints)
-    - [Swagger UI is also available for each microservice](#swagger-ui-is-also-available-for-each-microservice)
   - [🔐 Security](#-security)
   - [🧪 Testing](#-testing)
     - [Run unit tests](#run-unit-tests)
   - [📊 Monitoring](#-monitoring)
     - [Actuator endpoint](#actuator-endpoint)
   - [🧾 License](#-license)
-      - [This project is licensed under the MIT License - see the LICENSE file for details.](#this-project-is-licensed-under-the-mit-license---see-the-license-file-for-details)
   - [🙋‍♂️ Contributors](#️-contributors)
-      - [Abhijeet Kale (@kaleam)](#abhijeet-kale-kaleam)
   - [📬 Contact](#-contact)
-      - [For any queries or suggesstions: mr.abhijeetkale@gmail.com](#for-any-queries-or-suggesstions-mrabhijeetkalegmailcom)
 
 ---
 
@@ -103,7 +98,7 @@ This repository contains the backend implementation for an **E-commerce Platform
 mvn clean package
 ```
 
-### Build and run microservice
+#### Build and run microservice
 ```
 mvn spring-boot:run
 ```
