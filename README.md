@@ -71,12 +71,13 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ### Running the Application
 
-```Windows CMD or Powershell```
-### 1. Build the microservice
+```
+# 1. Build the microservice
 mvn clean package
 
-### 2. Build and run microservice
+# 2. Build and run microservice
 mvn spring-boot:run
+```
 
 ## API Testing
 
@@ -95,8 +96,10 @@ mvn spring-boot:run
 
 ## 🧪 Testing
 
-### Run unit tests
+```
+# Run unit tests
 mvn test
+```
 
 ## 📊 Monitoring
 
