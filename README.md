@@ -5,22 +5,22 @@ This repository contains the backend implementation for an **E-commerce Platform
 ---
 
 # Table of contents
-- [Features](#-features)
-- [Microservices Overview](#-microservices-overview)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
+- [Features](#features)
+- [Microservices Overview](#microservices-overview)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Running the Application](#running-the-application)
 - [API Testing](#api-testing)
-- [Security](#-security)
-- [Testing](#-testing)
+- [Security](#security)
+- [Testing](#testing)
   - [Run unit tests](#run-unit-tests)
-- [Monitoring](#-monitoring)
+- [Monitoring](#monitoring)
   - [Actuator endpoint](#actuator-endpoint)
-- [License](#-license)
-- [Contributors](#️-contributors)
-- [Contact](#-contact)
+- [License](#license)
+- [Contributors](#contributors)
+- [Contact](#contact)
 
 ---
 
