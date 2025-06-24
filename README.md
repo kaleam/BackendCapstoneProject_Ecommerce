@@ -1,43 +1,43 @@
-# 🛒 Backend Capstone Project — E-commerce Microservices
+# Backend Capstone Project — E-commerce Microservices
 
 This repository contains the backend implementation for an **E-commerce Platform** developed as a Capstone Project. It is built using a **Microservices Architecture** with technologies like **Spring Boot**, **Kafka**, **MongoDB**, and **MySQL**, designed for scalability and maintainability.
 
 ---
 
 # Table of contents
-- [🚀 Features](#-features)
-- [🧱 Microservices Overview](#-microservices-overview)
-- [🧪 Tech Stack](#-tech-stack)
-- [📂 Project Structure](#-project-structure)
-- [🔧 Getting Started](#-getting-started)
+- [Features](#-features)
+- [Microservices Overview](#-microservices-overview)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
   - [Running the Application](#running-the-application)
 - [API Testing](#api-testing)
-- [🔐 Security](#-security)
-- [🧪 Testing](#-testing)
+- [Security](#-security)
+- [Testing](#-testing)
   - [Run unit tests](#run-unit-tests)
-- [📊 Monitoring](#-monitoring)
+- [Monitoring](#-monitoring)
   - [Actuator endpoint](#actuator-endpoint)
-- [🧾 License](#-license)
-- [🙋‍♂️ Contributors](#️-contributors)
-- [📬 Contact](#-contact)
+- [License](#-license)
+- [Contributors](#️-contributors)
+- [Contact](#-contact)
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🔐 **User Management** – Signup, Login, Logout, JWT-based Authentication, Session Tracking
-- 🛍️ **Product Catalog** – Search and browse products using Elasticsearch
-- 🛒 **Cart Management** – Add, remove, view items in cart and checkout
-- 🧾 **Order Service** – Processing checkout, Order placement, Order tracking, Payment initiation
-- 💳 **Payment Service** – Mock payment processing and transaction logging
-- 🔔 **Notification Service** – Email/SMS notifications via Kafka
-- 📦 **Load Balancer** – Centralized routing - HAProxy
-- 📊 **Monitoring** – Actuator service exposed for each microservice
+- **User Management** – Signup, Login, Logout, JWT-based Authentication, Session Tracking
+- **Product Catalog** – Search and browse products using Elasticsearch
+- **Cart Management** – Add, remove, view items in cart and checkout
+- **Order Service** – Processing checkout, Order placement, Order tracking, Payment initiation
+- **Payment Service** – Mock payment processing and transaction logging
+- **Notification Service** – Email/SMS notifications via Kafka
+- **Load Balancer** – Centralized routing - HAProxy
+- **Monitoring** – Actuator service exposed for each microservice
 
 ---
 
-## 🧱 Microservices Overview
+## Microservices Overview
 
 | Service         | Description                           | Technology Stack                  |
 | --------------- | ------------------------------------- | --------------------------------- |
@@ -51,7 +51,7 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ---
 
-## 🧪 Tech Stack
+## Tech Stack
 
 - **Java 21 + Spring Boot 3.4.4**
 - **Kafka 2.13-4.0.0** for async communication
@@ -62,7 +62,7 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 - **UserManagementService**
 - **ProductCatalogService**
@@ -78,7 +78,7 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ---
 
-## 🔧 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -111,19 +111,19 @@ mvn spring-boot:run
 - **OrderManagementService**    - http://localhost:8080/api/order/swagger-ui/index.html#/
 - **PaymentService**            - http://localhost:8080/api/payment/swagger-ui/index.html#/
 
-## 🔐 Security
+## Security
 
 - **JWT token authentication via UserManagementService**
 - **BCrypt for password hashing**
 
-## 🧪 Testing
+## Testing
 
 ### Run unit tests
 ```
 mvn test
 ```
 
-## 📊 Monitoring
+## Monitoring
 
 ### Actuator endpoint
 
@@ -133,14 +133,14 @@ mvn test
 - **OrderManagementService**    - http://localhost:8080/api/order/actuator/health
 - **PaymentService**            - http://localhost:8080/api/payment/actuator/health
 
-## 🧾 License
+## License
 
 #### This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙋‍♂️ Contributors
+## Contributors
 
 #### Abhijeet Kale (@kaleam)
 
-## 📬 Contact
+## Contact
 
 #### For any queries or suggesstions: mr.abhijeetkale@gmail.com
