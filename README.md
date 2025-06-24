@@ -4,6 +4,33 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ---
 
+- [🛒 Backend Capstone Project — E-commerce Microservices](#-backend-capstone-project--e-commerce-microservices)
+  - [🚀 Features](#-features)
+  - [🧱 Microservices Overview](#-microservices-overview)
+  - [🧪 Tech Stack](#-tech-stack)
+  - [📂 Project Structure](#-project-structure)
+  - [🔧 Getting Started](#-getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Running the Application](#running-the-application)
+      - [Build the microservice](#build-the-microservice)
+    - [Build and run microservice](#build-and-run-microservice)
+  - [API Testing](#api-testing)
+    - [Use postman collection 'Ecom.postman\_collection.json' to test endpoints](#use-postman-collection-ecompostman_collectionjson-to-test-endpoints)
+    - [Swagger UI is also available for each microservice](#swagger-ui-is-also-available-for-each-microservice)
+  - [🔐 Security](#-security)
+  - [🧪 Testing](#-testing)
+    - [Run unit tests](#run-unit-tests)
+  - [📊 Monitoring](#-monitoring)
+    - [Actuator endpoint](#actuator-endpoint)
+  - [🧾 License](#-license)
+      - [This project is licensed under the MIT License - see the LICENSE file for details.](#this-project-is-licensed-under-the-mit-license---see-the-license-file-for-details)
+  - [🙋‍♂️ Contributors](#️-contributors)
+      - [Abhijeet Kale (@kaleam)](#abhijeet-kale-kaleam)
+  - [📬 Contact](#-contact)
+      - [For any queries or suggesstions: mr.abhijeetkale@gmail.com](#for-any-queries-or-suggesstions-mrabhijeetkalegmailcom)
+
+---
+
 ## 🚀 Features
 
 - 🔐 **User Management** – Signup, Login, Logout, JWT-based Authentication, Session Tracking
@@ -19,15 +46,15 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ## 🧱 Microservices Overview
 
-| Service         | Description                                | Technology Stack                             |
-|-----------------|--------------------------------------------|----------------------------------------------|
-| User Service    | Manages users, login, sessions             | Spring Boot, MySQL, JWT, Bcrypt              |
-| Product Service | Searchable product listings                | Spring Boot, Elasticsearch, MySQL            |
-| Cart Service    | Manages user carts                         | Spring Boot, MongoDB, Redis                  |
-| Order Service   | Handles order lifecycle                    | Spring Boot, Kafka, MySQL                    |
-| Payment Service | Simulates payments                         | Spring Boot, Kafka, MySQL                    |
-| Notification    | Sends order and payment notifications      | Spring Boot, Kafka                           |
-| Load Balancer   | Routes requests to microservices           | HAProxy                                      |
+| Service         | Description                           | Technology Stack                  |
+| --------------- | ------------------------------------- | --------------------------------- |
+| User Service    | Manages users, login, sessions        | Spring Boot, MySQL, JWT, Bcrypt   |
+| Product Service | Searchable product listings           | Spring Boot, Elasticsearch, MySQL |
+| Cart Service    | Manages user carts                    | Spring Boot, MongoDB, Redis       |
+| Order Service   | Handles order lifecycle               | Spring Boot, Kafka, MySQL         |
+| Payment Service | Simulates payments                    | Spring Boot, Kafka, MySQL         |
+| Notification    | Sends order and payment notifications | Spring Boot, Kafka                |
+| Load Balancer   | Routes requests to microservices      | HAProxy                           |
 
 ---
 
@@ -71,11 +98,13 @@ This repository contains the backend implementation for an **E-commerce Platform
 
 ### Running the Application
 
+#### Build the microservice
 ```
-# 1. Build the microservice
 mvn clean package
+```
 
-# 2. Build and run microservice
+### Build and run microservice
+```
 mvn spring-boot:run
 ```
 
@@ -96,14 +125,14 @@ mvn spring-boot:run
 
 ## 🧪 Testing
 
+### Run unit tests
 ```
-# Run unit tests
 mvn test
 ```
 
 ## 📊 Monitoring
 
-# Actuator endpoint
+### Actuator endpoint
 
 - **UserManagementService**     - http://localhost:8080/api/user/actuator/health
 - **ProductCatalogService**     - http://localhost:8080/api/product/actuator/health
@@ -113,12 +142,12 @@ mvn test
 
 ## 🧾 License
 
-### This project is licensed under the MIT License - see the LICENSE file for details.
+#### This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙋‍♂️ Contributors
 
-### Abhijeet Kale (@kaleam)
+#### Abhijeet Kale (@kaleam)
 
 ## 📬 Contact
 
-### For any queries or suggesstions: mr.abhijeetkale@gmail.com
+#### For any queries or suggesstions: mr.abhijeetkale@gmail.com
