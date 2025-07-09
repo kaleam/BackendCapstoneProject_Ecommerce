@@ -74,7 +74,6 @@ This repository contains the backend implementation for an **E-commerce Platform
 - **Ecom.postman_collection.json**
 - **LICENSE**
 - **README.md**
-- **Scaler Neovarsity _ Academy Project Report (Backend Specialization).pdf**
 
 ---
 
